@@ -15,10 +15,12 @@ namespace SportsAide
         public static Form TrackerMenu;
         public static Form MediaMenu;
 
-        public static void OpenForm(Form change)
+        public static void OpenForm(Form f, bool closeLast = true)
         {
-            Form.ActiveForm.Hide();
-            change.Show();
+            if (closeLast == true) {
+                Form.ActiveForm.Hide();
+            }
+            f.Show();
         }
     }
 }
