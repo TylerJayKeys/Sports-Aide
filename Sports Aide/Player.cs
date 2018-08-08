@@ -10,11 +10,11 @@ namespace SportsAide
 {
     public static class Player
     {
+        static List<List<string>> _plydata = Core.GetTeamData();
+
         public static void Add(string name)
         {
-            // Add to DB, call Sync then refresh list.
-            // Alternatively have list saved locally then manually sync.
-            throw new NotImplementedException();
+            Core.SQLQuery(string.Format("INSERT INTO players (firstname, lastname) VALUES ({0})", name.Split(' ')));
         }
 
         public static void Remove(string name)
@@ -22,12 +22,19 @@ namespace SportsAide
             throw new NotImplementedException();
         }
 
-        public static Array Get(string name) // Find object for database item??
+        public static List<string> GetAll()
         {
-            throw new NotImplementedException();
+            List<string> list = new List<string> { };
+
+            foreach (List<string> player in _plydata)
+            {
+                list.Add(player[1] + " " + player[2]);
+            }
+
+            return list;
         }
 
-        public static void Load(string db)
+        public static void LoadNames(string db)
         {
             // Save chosen DB to compiler to be referenced later
 

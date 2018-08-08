@@ -19,7 +19,10 @@ namespace SportsAide
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            foreach (string name in Player.GetAll())
+            {
+                listBox1.Items.Add(name);
+            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

@@ -15,7 +15,8 @@ namespace SportsAide
         [STAThread]
         static void Main()
         {
-
+            // Initial bootup of the database.
+            // Does first time setup where required.
             string createQuery = @"CREATE TABLE IF NOT EXISTS [players] (
                                     [player_id] INTEGER  NOT NULL
                                     , [firstname] text NOT NULL
@@ -27,17 +28,19 @@ namespace SportsAide
                                     , CONSTRAINT [sqlite_master_PK_players] PRIMARY KEY ([player_id])
                                     );";
 
-            SQLiteConnection.CreateFile("sportsaide.db3");
-            using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db3"))
+            using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db")) // This is where db file is created if it doesn't already exist
             {
                 using (SQLiteCommand cmd = new SQLiteCommand(conn))
                 {
                     conn.Open();
-                    cmd.CommandText = createQuery;
-                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = createQuery; // Runs the CREATE TABLE query above.
+                    cmd.ExecuteNonQuery(); // Like an endline
                 };
+
+                conn.Close();
             }
 
+            // Default WinForms startup
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
