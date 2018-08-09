@@ -10,7 +10,6 @@ namespace SportsAide
 {
     public static class Core
     {
-
         public static Form MainMenu;
         public static Form PlayerMenu;
         public static Form TrackerMenu;
@@ -26,7 +25,6 @@ namespace SportsAide
 
         public static List<List<string>> GetTeamData() // Open database, query all table data and output as List in List
         {
-
             List<List<string>> data = new List<List<string>>();
 
             using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db"))
@@ -39,10 +37,8 @@ namespace SportsAide
                 {
                     using (SQLiteDataReader rd = cmd.ExecuteReader())
                     {
-
                         while (rd.Read())
                         {
-
                             // Add list with this order
                             // player_id INT, firstname, lastname, team_id INT, active INT, goals INT
                             List<string> add = new List<string> { rd.GetInt32(0).ToString(), rd.GetString(1),

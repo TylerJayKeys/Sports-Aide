@@ -34,7 +34,7 @@ namespace SportsAide
                 {
                     conn.Open();
                     cmd.CommandText = createQuery; // Runs the CREATE TABLE query above.
-                    cmd.ExecuteNonQuery(); // Like an endline
+                    cmd.ExecuteNonQuery(); // Execute SQL equivalent of "endline".
                 };
 
                 conn.Close();
