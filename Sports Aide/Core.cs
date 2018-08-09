@@ -57,6 +57,8 @@ namespace SportsAide
 
         public static void SQLQuery(string query)
         {
+            Console.WriteLine(query);
+
             using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db"))
             {
                 conn.Open();

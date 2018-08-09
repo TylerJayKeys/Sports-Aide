@@ -27,7 +27,10 @@ namespace SportsAide
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblName.Text = listBox1.SelectedItem.ToString();
+            if (listBox1.SelectedItem != null)
+            {
+                lblName.Text = listBox1.SelectedItem.ToString();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e) // CHANGE SOURCE
@@ -35,7 +38,8 @@ namespace SportsAide
             MessageBox.Show("This will allow for external SQL databases to be imported. There will also be an option to just store data locally with SQLite/text file.", "Coming Soon");
         }
 
-        private void button3_Click(object sender, EventArgs e) // BACK BTN
+        // BACK BUTTON
+        private void button3_Click(object sender, EventArgs e)
         {
             Core.OpenForm(Core.MainMenu);
         }
@@ -49,6 +53,21 @@ namespace SportsAide
         private void addBTN_Click(object sender, EventArgs e)
         {
             Player.Add(plyname.Text);
+            listBox1.Items.Add(plyname.Text);
+        }
+
+        // REFRESH BUTTON
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (string str in listBox1.Items) // BROKEN HERE PLS FIX
+            {
+                listBox1.Items.Remove(str);
+            }
+
+            foreach (string name in Player.GetAll())
+            {
+                listBox1.Items.Add(name);
+            }
         }
     }
 } 

@@ -22,7 +22,7 @@ namespace SportsAide
                                     , [firstname] text NOT NULL
                                     , [lastname] text NOT NULL
                                     , [picture] image NULL
-                                    , [team_id] bigint  NOT NULL
+                                    , [team_id] bigint DEFAULT 1 NOT NULL
                                     , [active] bigint DEFAULT 1  NOT NULL
                                     , [goals] bigint DEFAULT 0  NOT NULL
                                     , CONSTRAINT [sqlite_master_PK_players] PRIMARY KEY ([player_id])
