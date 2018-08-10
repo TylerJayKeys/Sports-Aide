@@ -19,10 +19,14 @@ namespace SportsAide
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            listBox1.BeginUpdate();
+
             foreach (string name in Player.GetAll())
             {
                 listBox1.Items.Add(name);
             }
+
+            listBox1.EndUpdate();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,15 +63,18 @@ namespace SportsAide
         // REFRESH BUTTON
         private void button2_Click(object sender, EventArgs e)
         {
-            foreach (string str in listBox1.Items) // BROKEN HERE PLS FIX
-            {
-                listBox1.Items.Remove(str);
-            }
+            // Shutdown item drawing while data is collected
+            listBox1.BeginUpdate();
+            
+            listBox1.Items.Clear();
 
+            // Get all NAMES from SQLite
             foreach (string name in Player.GetAll())
             {
                 listBox1.Items.Add(name);
             }
+
+            listBox1.EndUpdate();
         }
     }
 } 
