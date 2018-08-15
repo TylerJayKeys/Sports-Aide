@@ -17,13 +17,14 @@ namespace SportsAide
 
         public static void OpenForm(Form f, bool closeLast = true)
         {
-            if (closeLast == true) {
+            if (closeLast) {
                 Form.ActiveForm.Hide();
             }
             f.Show();
         }
 
-        public static List<List<string>> GetTeamData() // Open database, query all table data and output as List in List
+        // Open database, query all table data and output as List in List
+        public static List<List<string>> GetTeamData()
         {
             List<List<string>> data = new List<List<string>>();
 
@@ -39,7 +40,7 @@ namespace SportsAide
                     {
                         while (rd.Read())
                         {
-                            // Add list with this order
+                            // Add list with this order:
                             // player_id INT, firstname, lastname, team_id INT, active INT, goals INT
                             List<string> add = new List<string> { rd.GetInt32(0).ToString(), rd.GetString(1),
                              rd.GetString(2), rd.GetInt32(4).ToString(), rd.GetInt32(5).ToString(), rd.GetInt32(6).ToString() };
@@ -55,10 +56,10 @@ namespace SportsAide
             return data;
         }
 
+        // Purely run a query on the DB, does not return any usable values
+        // Good for doing table inserts or other external DB manipulation
         public static void SQLQuery(string query)
         {
-            Console.WriteLine(query);
-
             using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db"))
             {
                 conn.Open();
