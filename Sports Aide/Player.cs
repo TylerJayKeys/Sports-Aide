@@ -37,6 +37,7 @@ namespace SportsAide
 
             foreach (List<string> player in Core.GetTeamData())
             {
+                // Index starts at 1 since 0 is the player ID
                 list.Add(player[1] + " " + player[2]);
             }
 

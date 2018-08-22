@@ -19,6 +19,7 @@ namespace SportsAide
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            // Shutdown item drawing while data is collected
             listBox1.BeginUpdate();
 
             foreach (string name in Player.GetAll())
