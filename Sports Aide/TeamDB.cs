@@ -30,35 +30,29 @@ namespace SportsAide
             listBox1.EndUpdate();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBox1.SelectedItem != null)
-            {
-                lblName.Text = listBox1.SelectedItem.ToString();
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e) // CHANGE SOURCE
-        {
-            MessageBox.Show("This will allow for external SQL databases to be imported. There will also be an option to just store data locally with SQLite/text file.", "Coming Soon");
-        }
-
         // BACK BUTTON
         private void button3_Click(object sender, EventArgs e)
         {
             Core.OpenForm(Core.MainMenu);
         }
 
+        // REMOVE BUTTON
         private void rmbtn_Click(object sender, EventArgs e)
         {
-            listBox1.SetSelected(0, true);
+            string[] item = listBox1.SelectedItem.ToString().Split(' ');
+
             listBox1.Items.Remove(listBox1.SelectedItem);
+            Core.SQLQuery("DELETE FROM players WHERE (firstname, lastname) = ('" + item[0] + "', '" + item[1] + "');");
         }
 
+        // ADD PLAYER BUTTON
         private void addBTN_Click(object sender, EventArgs e)
         {
-            Player.Add(plyname.Text);
-            listBox1.Items.Add(plyname.Text);
+            if (Player.Add(plyname.Text))
+            {
+                listBox1.Items.Add(plyname.Text);
+            }
+            
         }
 
         // REFRESH BUTTON
@@ -77,5 +71,45 @@ namespace SportsAide
 
             listBox1.EndUpdate();
         }
+
+        // Load all info when a player is selected.
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Index will definitely be invalid when removing items.
+            if (listBox1.SelectedIndex != -1)
+            {
+                plyLabel.Text = listBox1.SelectedItem.ToString();
+                plyImgBox.Image = Core.SQLGetImage(listBox1.SelectedItem.ToString());
+            }
+        }
+
+        // UPLOAD IMAGE BUTTON
+        private void btnUpload_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Image Files|*.jpg;*.jpeg;*.png";
+            dialog.Title = "Select a Player Image";
+
+            // CHANGE THIS TO CALL IMAGE PROCESSING
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap img = new Bitmap(dialog.OpenFile());
+
+                Core.SQLSetImage(listBox1.SelectedItem.ToString(), img);
+                plyImgBox.Image = img;
+            }
+        }
+
+        // REMOVE IMAGE BUTTON
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove the image?", "Remove Image", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                Core.SQLSetImage(listBox1.SelectedItem.ToString(), null);
+                plyImgBox.Image = null;
+            }
+        }
     }
-} 
+}

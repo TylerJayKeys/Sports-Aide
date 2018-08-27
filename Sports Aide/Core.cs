@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using System.Drawing;
+using System.IO;
 
 namespace SportsAide
 {
@@ -56,8 +58,11 @@ namespace SportsAide
             return data;
         }
 
-        // Purely run a query on the DB, does not return any usable values
-        // Good for doing table inserts or other external DB manipulation
+        /// <summary>
+        /// Purely run a query on the DB, does not return any usable values.
+        /// Good for doing table inserts or other external DB manipulation.
+        /// </summary>
+        /// <param name="query">SQL query in string format.</param>
         public static void SQLQuery(string query)
         {
             using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db"))
@@ -71,6 +76,80 @@ namespace SportsAide
                 }
 
                 conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Converts an image into a byte stream and stores it in the SQL database.
+        /// </summary>
+        /// <param name="player">Name of the player who's image we're storing in the database.</param>
+        /// <param name="img">Image to be converted and stored.</param>
+        public static void SQLSetImage(string player, Image img)
+        {
+            string[] ply = player.Split(' ');
+            byte[] data;
+
+            // Call with image as null value if removing the current image.
+            if (img == null)
+            {
+                SQLQuery("UPDATE players SET picture = NULL WHERE (firstname, lastname) = ('" + ply[0] + "', '" + ply[1] + "');");
+                return;
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                img.Save(ms, img.RawFormat);
+                data = ms.ToArray();
+
+                using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db"))
+                {
+                    conn.Open();
+                    
+                    SQLiteCommand cmd = new SQLiteCommand(conn);
+
+                    cmd.CommandText = "UPDATE players SET picture = @data WHERE (firstname, lastname) = ('" + ply[0] + "', '" + ply[1] + "');";
+                    cmd.Prepare();
+
+                    cmd.Parameters.Add("@data", System.Data.DbType.Binary, data.Length);
+                    cmd.Parameters["@data"].Value = data;
+                    cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a player's image from the SQL database.
+        /// </summary>
+        /// <param name="player">Name of the player who's image we're retrieving.</param>
+        /// <returns>Player's image.</returns>
+        public static Image SQLGetImage(string player)
+        {
+            string[] ply = player.Split(' ');
+            byte[] data;
+
+            using (SQLiteConnection conn = new SQLiteConnection("data source=sportsaide.db"))
+            {
+                conn.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(conn);
+                cmd.CommandText = "SELECT picture FROM players WHERE (firstname, lastname) = ('" + ply[0] + "', '" + ply[1] + "');";
+
+                data = cmd.ExecuteScalar().GetType() != typeof(DBNull) ? (byte[])cmd.ExecuteScalar() : null;
+
+                conn.Close();
+
+                if (data != null)
+                {
+                    using (var ms = new MemoryStream(data))
+                    {
+                        return Image.FromStream(ms);
+                    }
+                } else
+                {
+                    return null;
+                }
             }
         }
     }
