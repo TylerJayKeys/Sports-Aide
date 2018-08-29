@@ -17,11 +17,14 @@ namespace SportsAide
         public static Form TrackerMenu;
         public static Form MediaMenu;
 
+        // Global function for opening and closing forms.
         public static void OpenForm(Form f, bool closeLast = true)
         {
-            if (closeLast) {
+            if (closeLast)
+            {
                 Form.ActiveForm.Hide();
             }
+            
             f.Show();
         }
 
@@ -40,6 +43,7 @@ namespace SportsAide
                 {
                     using (SQLiteDataReader rd = cmd.ExecuteReader())
                     {
+                        // Loop over each row in the table, returning true if there is another row to iterate over.
                         while (rd.Read())
                         {
                             // Add list with this order:
@@ -60,7 +64,7 @@ namespace SportsAide
 
         /// <summary>
         /// Purely run a query on the DB, does not return any usable values.
-        /// Good for doing table inserts or other external DB manipulation.
+        /// Good for doing table inserts or other external DB manipulation that doesn't involve retrieving data.
         /// </summary>
         /// <param name="query">SQL query in string format.</param>
         public static void SQLQuery(string query)
@@ -89,7 +93,7 @@ namespace SportsAide
             string[] ply = player.Split(' ');
             byte[] data;
 
-            // Call with image as null value if removing the current image.
+            // Removes the image from the database then breaks the function if the img argument is null.
             if (img == null)
             {
                 SQLQuery("UPDATE players SET picture = NULL WHERE (firstname, lastname) = ('" + ply[0] + "', '" + ply[1] + "');");
@@ -136,6 +140,9 @@ namespace SportsAide
                 SQLiteCommand cmd = new SQLiteCommand(conn);
                 cmd.CommandText = "SELECT picture FROM players WHERE (firstname, lastname) = ('" + ply[0] + "', '" + ply[1] + "');";
 
+                // SQL returns type DBNull instead of null if the query result is empty.
+                // ExecuteScalar() will break the program if DBNull is returned so I use a ternary operator to
+                // do a check whilst remaining in the same scope.
                 data = cmd.ExecuteScalar().GetType() != typeof(DBNull) ? (byte[])cmd.ExecuteScalar() : null;
 
                 conn.Close();

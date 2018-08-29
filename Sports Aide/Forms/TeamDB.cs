@@ -39,10 +39,8 @@ namespace SportsAide
         // REMOVE BUTTON
         private void rmbtn_Click(object sender, EventArgs e)
         {
-            string[] item = listBox1.SelectedItem.ToString().Split(' ');
-
             listBox1.Items.Remove(listBox1.SelectedItem);
-            Core.SQLQuery("DELETE FROM players WHERE (firstname, lastname) = ('" + item[0] + "', '" + item[1] + "');");
+            Player.Remove(listBox1.SelectedItem.ToString());
         }
 
         // ADD PLAYER BUTTON

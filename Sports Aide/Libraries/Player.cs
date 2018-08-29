@@ -11,17 +11,18 @@ namespace SportsAide
 {
     public static class Player
     {
-        static List<List<string>> _plydata = Core.GetTeamData();
-
         public static bool Add(string name)
         {
             string[] str = name.Split(' ');
 
+            // ERROR TRAPPING:
+            // Only allow two names for the sake of ease when implementing into SQL.
             if (str.GetLength(0) > 2)
             {
                 MessageBox.Show("You can only enter two names!", "Name Invalid!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            // Make sure the name isn't blank or the default name.
             else if (name == "" || name == "Player Name")
             {
                 MessageBox.Show("You must enter a name!", "Name Invalid!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -36,7 +37,8 @@ namespace SportsAide
 
         public static void Remove(string name)
         {
-            throw new NotImplementedException();
+            string[] ply = ply.Split(' ');
+            Core.SQLQuery("DELETE FROM players WHERE (firstname, lastname) = ('" + ply[0] + "', '" + ply[1] + "');");
         }
 
         public static List<string> GetAll()
