@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -36,9 +37,19 @@
             this.addBTN = new System.Windows.Forms.Button();
             this.plyname = new System.Windows.Forms.TextBox();
             this.plyImgBox = new System.Windows.Forms.PictureBox();
-            this.plyLabel = new System.Windows.Forms.Label();
             this.btnUpload = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.txtFirstName = new System.Windows.Forms.TextBox();
+            this.txtLastName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.saveBtn = new System.Windows.Forms.Button();
+            this.posBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.activeCheck = new System.Windows.Forms.CheckBox();
+            this.plyNotes = new System.Windows.Forms.TextBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.plyImgBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,19 +133,9 @@
             this.plyImgBox.TabIndex = 20;
             this.plyImgBox.TabStop = false;
             // 
-            // plyLabel
-            // 
-            this.plyLabel.AutoSize = true;
-            this.plyLabel.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.plyLabel.Location = new System.Drawing.Point(355, 44);
-            this.plyLabel.Name = "plyLabel";
-            this.plyLabel.Size = new System.Drawing.Size(282, 44);
-            this.plyLabel.TabIndex = 21;
-            this.plyLabel.Text = "Select a Player";
-            // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(205, 250);
+            this.btnUpload.Location = new System.Drawing.Point(206, 250);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(63, 23);
             this.btnUpload.TabIndex = 22;
@@ -144,7 +145,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(274, 250);
+            this.btnRemove.Location = new System.Drawing.Point(276, 250);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(63, 23);
             this.btnRemove.TabIndex = 23;
@@ -152,14 +153,140 @@
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
+            // txtFirstName
+            // 
+            this.txtFirstName.Location = new System.Drawing.Point(458, 88);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(130, 20);
+            this.txtFirstName.TabIndex = 24;
+            this.txtFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
+            // 
+            // txtLastName
+            // 
+            this.txtLastName.Location = new System.Drawing.Point(458, 122);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(130, 20);
+            this.txtLastName.TabIndex = 25;
+            this.txtLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(355, 87);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 19);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "First Name:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(367, 121);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 19);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Surname:";
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveBtn.Location = new System.Drawing.Point(218, 295);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(106, 52);
+            this.saveBtn.TabIndex = 28;
+            this.saveBtn.Text = "Save Changes";
+            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            // 
+            // posBox
+            // 
+            this.posBox.AutoCompleteCustomSource.AddRange(new string[] {
+            "Goalkeeper",
+            "Defender",
+            "Midfielder",
+            "Forward"});
+            this.posBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.posBox.Items.AddRange(new object[] {
+            "Goalkeeper",
+            "Defender",
+            "Midfielder",
+            "Forward"});
+            this.posBox.Location = new System.Drawing.Point(458, 157);
+            this.posBox.Name = "posBox";
+            this.posBox.Size = new System.Drawing.Size(130, 21);
+            this.posBox.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(372, 159);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(78, 19);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Position:";
+            // 
+            // activeCheck
+            // 
+            this.activeCheck.AutoSize = true;
+            this.activeCheck.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.activeCheck.Location = new System.Drawing.Point(482, 184);
+            this.activeCheck.Name = "activeCheck";
+            this.activeCheck.Size = new System.Drawing.Size(75, 23);
+            this.activeCheck.TabIndex = 30;
+            this.activeCheck.Text = "Active";
+            this.activeCheck.UseVisualStyleBackColor = true;
+            // 
+            // plyNotes
+            // 
+            this.plyNotes.Location = new System.Drawing.Point(376, 271);
+            this.plyNotes.Multiline = true;
+            this.plyNotes.Name = "plyNotes";
+            this.plyNotes.Size = new System.Drawing.Size(283, 209);
+            this.plyNotes.TabIndex = 31;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(238, 353);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(63, 23);
+            this.btnCancel.TabIndex = 32;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.label5.Location = new System.Drawing.Point(372, 251);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 19);
+            this.label5.TabIndex = 33;
+            this.label5.Text = "Notes:";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 512);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(670, 507);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.plyNotes);
+            this.Controls.Add(this.activeCheck);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.posBox);
+            this.Controls.Add(this.saveBtn);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtLastName);
+            this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnUpload);
-            this.Controls.Add(this.plyLabel);
             this.Controls.Add(this.plyImgBox);
             this.Controls.Add(this.plyname);
             this.Controls.Add(this.rmbtn);
@@ -168,6 +295,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form2";
             this.Text = "Team Details";
             this.Load += new System.EventHandler(this.Form2_Load);
@@ -187,8 +315,18 @@
         private System.Windows.Forms.Button addBTN;
         private System.Windows.Forms.TextBox plyname;
         private System.Windows.Forms.PictureBox plyImgBox;
-        private System.Windows.Forms.Label plyLabel;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.TextBox txtFirstName;
+        private System.Windows.Forms.TextBox txtLastName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button saveBtn;
+        private System.Windows.Forms.ComboBox posBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox activeCheck;
+        private System.Windows.Forms.TextBox plyNotes;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label5;
     }
 }
