@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SportsAide
+namespace Sports_Aide.Forms
 {
-    public partial class SQLcontrol : UserControl
+    public partial class Login : Form
     {
-        public SQLcontrol()
+        public Login()
         {
             InitializeComponent();
         }
